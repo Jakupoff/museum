@@ -18,6 +18,15 @@ Double-click `start.bat`, or run `node server.js` and open http://localhost:8765
 - Computer: WASD / arrow keys to walk, mouse to look, Shift to go faster, click or E on a photo to look closer, Esc to pause, M for music.
 - Phone: left thumb to walk, right thumb to look, tap a photo.
 
+## Visit together
+1. Both type your names on the start screen.
+2. One of you clicks **Visit together** and gets a code like `ROSE-42`.
+3. The other types that code and clicks **Join**.
+
+You then see each other walking in the museum, and get a little note when the other opens a photo.
+It connects your two devices directly (WebRTC via the free PeerJS service), with no server of your own.
+On some mobile networks a direct connection isn't possible; if joining fails, try Wi-Fi.
+
 ## Share it with her
 It's a plain static site, so you can put the folder on GitHub Pages or Netlify (drag and drop the folder)
 and send the link. It works on phones too.

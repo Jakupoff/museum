@@ -19,6 +19,23 @@
   #intro button { font: inherit; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; color: #14100d;
     background: #e8c98f; border: 0; padding: 14px 34px; border-radius: 999px; cursor: pointer; }
   #intro button:hover { background: #f3d9a8; }
+  .field { font: inherit; font-size: 17px; color: #f3ead9; background: rgba(255,255,255,.06); border: 1px solid #6b5a45;
+    border-radius: 999px; padding: 11px 20px; text-align: center; outline: none; width: 240px; margin-bottom: 16px; }
+  .field:focus { border-color: #e8c98f; }
+  .field.small { width: 120px; margin: 0; text-transform: uppercase; letter-spacing: .1em; }
+  .together { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+  .together .or { color: #9d8b72; font-size: 14px; font-family: system-ui, sans-serif; }
+  #intro button.ghost { background: transparent; color: #e8c98f; border: 1px solid #e8c98f; padding: 10px 22px; font-size: 14px; }
+  #intro button.ghost:hover { background: rgba(232,201,143,.12); }
+  #intro.paused .together, #intro.paused #name { display: none; }
+  #netStatus { margin-top: 16px; min-height: 22px; color: #e8c98f; font-family: system-ui, sans-serif; font-size: 15px; }
+  #netStatus b { font-size: 22px; letter-spacing: .12em; }
+  #roomPill { position: fixed; top: 14px; left: 14px; z-index: 8; background: rgba(10,8,6,.6); padding: 7px 16px; border-radius: 999px;
+    font: 14px system-ui, sans-serif; display: none; pointer-events: none; }
+  #roomPill.show { display: block; }
+  #toast { position: fixed; top: 14px; left: 50%; transform: translate(-50%, -80px); z-index: 25; background: rgba(232,201,143,.95);
+    color: #14100d; padding: 9px 20px; border-radius: 999px; font: 15px system-ui, sans-serif; transition: transform .35s; pointer-events: none; }
+  #toast.show { transform: translate(-50%, 0); }
   #intro .help { margin-top: 30px; color: #9d8b72; font-size: 14px; line-height: 1.8; font-family: system-ui, sans-serif; }
   kbd { border: 1px solid #6b5a45; border-radius: 4px; padding: 1px 6px; font-size: 12px; }
 
@@ -54,13 +71,23 @@
   <div id="intro">
     <h1 id="introTitle">Our Museum</h1>
     <p class="sub" id="introSub"></p>
+    <input id="name" class="field" placeholder="Your name" maxlength="16" autocomplete="off">
     <button id="enter">Enter</button>
+    <div class="together">
+      <button id="host" class="ghost">Visit together</button>
+      <span class="or">or join:</span>
+      <input id="code" class="field small" placeholder="CODE" maxlength="12" autocomplete="off">
+      <button id="join" class="ghost">Join</button>
+    </div>
+    <div id="netStatus"></div>
     <div class="help" id="help">
       <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> walk · mouse to look · <kbd>Shift</kbd> faster<br>
       <kbd>E</kbd> or click a photo to look closer · <kbd>Esc</kbd> pause · <kbd>M</kbd> music
     </div>
   </div>
 
+  <div id="roomPill"></div>
+  <div id="toast"></div>
   <div id="crosshair"></div>
   <div id="hint"></div>
   <div id="touchHelp">left thumb: walk · right thumb: look · tap a photo</div>
@@ -75,6 +102,7 @@
   </div>
 
   <script src="photos.js"></script>
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <script type="importmap">
     { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
   </script>
