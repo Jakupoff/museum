@@ -1,0 +1,20 @@
+services:
+  museum:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8765:8765"
+    env_file: .env
+    volumes:
+      - ./:/app            # code edits (photos.js etc.) apply without rebuilding
+      - ./data:/app/data   # photos added from the site are saved here on the laptop
+
+  # Free public HTTPS link to the laptop (no account). The link is printed in the logs:
+  #   docker compose logs tunnel | findstr trycloudflare
+  # It changes every time this container restarts.
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --url http://museum:8765
+    depends_on:
+      - museum

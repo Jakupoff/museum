@@ -10,9 +10,21 @@ A small 3D gallery you can walk through and look at your photos.
 
 A frame whose file is missing shows a placeholder that tells you which file name it expects.
 
-## Open it
-Double-click `start.bat`, or run `node server.js` and open http://localhost:8765.
-(Opening `index.html` directly doesn't work, because browsers block loading the photos from a plain file.)
+## Run it from the laptop (with photo uploads)
+1. Start Docker Desktop.
+2. Double-click `start.bat`. It starts the museum and prints a public link like
+   `https://something.trycloudflare.com`. Send that link to her; it works on iPhone.
+3. In the museum, tap any frame to add or change its photo, title, date and note.
+   The empty frame with a **+** at the end adds a new photo, and the hall grows.
+   The first time, it asks for the museum password (it's in the `.env` file).
+
+Photos added this way are saved on the laptop in `data/` (not on GitHub).
+The link works only while the laptop is on and Docker is running, and it changes every time the containers restart.
+Stop everything with `docker compose down`.
+
+Without Docker: `node server.js`, then open http://localhost:8765.
+
+The GitHub Pages copy (https://jakupoff.github.io/museum/) can't save uploads; it only shows the photos listed in `photos.js`.
 
 ## Controls
 - Computer: WASD / arrow keys to walk, mouse to look, Shift to go faster, click or E on a photo to look closer, Esc to pause, M for music.

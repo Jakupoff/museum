@@ -55,6 +55,29 @@
   #lightbox .note { max-width: 640px; text-align: center; color: #e4d7c2; margin-top: 10px; line-height: 1.5; }
   #lightbox .close { position: absolute; top: 14px; right: 22px; font-size: 13px; color: #9d8b72; font-family: system-ui, sans-serif; }
 
+  #lightbox .actions { margin-top: 18px; }
+  button.ghost, button.solid { font: 15px system-ui, sans-serif; border-radius: 999px; padding: 10px 20px; cursor: pointer; }
+  button.ghost { background: transparent; color: #e8c98f; border: 1px solid #e8c98f; }
+  button.solid { background: #e8c98f; color: #14100d; border: 0; font-weight: 600; }
+  button.danger { color: #e79a92; border-color: #8a4b45; }
+  button:disabled { opacity: .5; }
+
+  #editor { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 16px;
+    background: rgba(10,8,6,.85); opacity: 0; pointer-events: none; transition: opacity .25s; overflow-y: auto; }
+  #editor.open { opacity: 1; pointer-events: auto; }
+  #editor .card { width: 100%; max-width: 420px; background: #221a14; border: 1px solid #4a3a2c; border-radius: 18px; padding: 22px;
+    display: flex; flex-direction: column; gap: 12px; margin: auto; }
+  #editor h3 { margin: 0 0 4px; font-weight: normal; font-size: 24px; text-align: center; }
+  #editor .pick { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; border: 2px dashed #6b5a45;
+    border-radius: 14px; padding: 14px; color: #e8c98f; font: 16px system-ui, sans-serif; }
+  #editor .pick img { max-width: 100%; max-height: 34vh; border-radius: 6px; display: none; }
+  #editor .pick input { display: none; }
+  .field.wide { width: 100%; margin: 0; border-radius: 12px; text-align: left; font-size: 16px; }
+  textarea.field { resize: vertical; font-family: inherit; }
+  #edErr { min-height: 20px; color: #e79a92; font: 14px system-ui, sans-serif; text-align: center; }
+  #editor .btns { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  #editor .btns .danger { margin-right: auto; }
+
   #joy { position: fixed; width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; z-index: 6;
     border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.08); display: none; pointer-events: none; }
   #knob { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%;
@@ -99,6 +122,28 @@
     <h2 id="lbTitle"></h2>
     <div class="date" id="lbDate"></div>
     <div class="note" id="lbNote"></div>
+    <div class="actions"><button id="lbEdit" class="ghost">Change photo or text</button></div>
+  </div>
+
+  <div id="editor">
+    <div class="card">
+      <h3 id="edHead">Add a photo</h3>
+      <label class="pick">
+        <img id="edPreview" alt="">
+        <span id="edPickText">Choose a photo</span>
+        <input type="file" id="edFile" accept="image/*">
+      </label>
+      <input id="edTitle" class="field wide" placeholder="Title (e.g. Our first date)" maxlength="80" autocomplete="off">
+      <input id="edDate" class="field wide" placeholder="Date (e.g. Summer 2024)" maxlength="40" autocomplete="off">
+      <textarea id="edNote" class="field wide" placeholder="A little note (optional)" maxlength="600" rows="3"></textarea>
+      <input id="edPass" class="field wide" type="password" placeholder="Museum password" autocomplete="current-password">
+      <div id="edErr"></div>
+      <div class="btns">
+        <button id="edRemove" class="ghost danger">Remove</button>
+        <button id="edCancel" class="ghost">Cancel</button>
+        <button id="edSave" class="solid">Save</button>
+      </div>
+    </div>
   </div>
 
   <script src="photos.js"></script>
